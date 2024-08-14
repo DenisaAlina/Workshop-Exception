@@ -5,6 +5,7 @@ import java.util.Random;
 
 import se.lexicon.exceptions.workshop.domain.Gender;
 import se.lexicon.exceptions.workshop.domain.Person;
+import se.lexicon.exceptions.workshop.exceptions.DuplicateNameException;
 import se.lexicon.exceptions.workshop.fileIO.CSVReader_Writer;
 
 public class NameService {
@@ -61,9 +62,12 @@ public class NameService {
 	     * DuplicateNameException.
 	     * @param name
 	     */
-	    public void addFemaleFirstName(String name){
-	    	femaleFirstNames.add(name);
-	    	CSVReader_Writer.saveFemaleNames(femaleFirstNames);
+	    public void addFemaleFirstName(String name)throws DuplicateNameException{
+			if (femaleFirstNames.contains(name)) {
+				throw new DuplicateNameException("Name " + name + " already exists in the female first names list.");
+			}
+			femaleFirstNames.add(name);
+			CSVReader_Writer.saveFemaleNames(femaleFirstNames);
 	    		
 	    }
 
@@ -73,9 +77,12 @@ public class NameService {
 	     * DuplicateNameException.
 	     * @param name
 	     */
-	    public void addMaleFirstName(String name){
-	    	maleFirstNames.add(name);
-	        CSVReader_Writer.saveMaleNames(maleFirstNames);
+	    public void addMaleFirstName(String name) throws DuplicateNameException{
+			if (maleFirstNames.contains(name)) {
+				throw new DuplicateNameException("Name " + name + " already exists in the male first names list.");
+			}
+			maleFirstNames.add(name);
+			CSVReader_Writer.saveMaleNames(maleFirstNames);
 	    }
 
 	    /**
@@ -84,9 +91,12 @@ public class NameService {
 	     * DuplicateNameException.
 	     * @param lastName
 	     */
-	    public void addLastName(String lastName){
-	    	lastNames.add(lastName);
-	        CSVReader_Writer.saveLastNames(lastNames);
+	    public void addLastName(String lastName) throws DuplicateNameException{
+			if (lastNames.contains(lastName)) {
+				throw new DuplicateNameException("Last name " + lastName + " already exists in the last names list.");
+			}
+			lastNames.add(lastName);
+			CSVReader_Writer.saveLastNames(lastNames);
 	    }
 
 
